@@ -15,7 +15,8 @@ Una aplicación de escritorio sencilla para automatizar la carga y filtrado de a
 - Estilo y temas personalizados utilizando `ttkthemes`.
 
 ## Capturas de Pantalla
-![image](https://github.com/user-attachments/assets/1dc1438b-05ad-4926-b053-719f184d4964)
+![image](https://github.com/user-attachments/assets/f451fad1-a85f-490d-974b-292c68d4e4ef)
+
 
 ## Tecnologías Utilizadas
 
