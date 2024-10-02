@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog, ttk
 import pandas as pd
+import matplotlib.pyplot as plt
 from ttkthemes import ThemedTk
-import time
 
 # Toast Notification
 def show_toast(message, duration=2000):
@@ -63,6 +63,27 @@ def display_data(dataframe):
     for index, row in dataframe.iterrows():
         tree.insert("", "end", values=list(row))
 
+# Generate Pie Chart for Gender/Género
+def generate_pie_chart():
+    if df is None:
+        show_toast("No CSV file loaded", duration=3000)
+        return
+    
+    gender_columns = [col for col in df.columns if col.lower() in ['gender', 'genero']]
+    
+    if not gender_columns:
+        show_toast("No 'Gender' or 'Género' column found in the data", duration=3000)
+        return
+    
+    gender_column = gender_columns[0]
+    gender_counts = df[gender_column].value_counts()
+    
+    # Generate Pie Chart
+    plt.figure(figsize=(5, 5))
+    plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=90, colors=['#66b3ff', '#ff9999'])
+    plt.title(f'Distribution of {gender_column}')
+    plt.show()
+
 # Main Application
 def main():
     global df, filter_column_entry, filter_value_entry, frame_results, root
@@ -100,6 +121,10 @@ def main():
 
     filter_button = ttk.Button(frame_filter, text="Apply Filter", command=filter_data)
     filter_button.grid(row=2, columnspan=2, pady=10)
+
+    # Button for Pie Chart
+    pie_chart_button = ttk.Button(frame_filter, text="Generate Gender Pie Chart", command=generate_pie_chart)
+    pie_chart_button.grid(row=3, columnspan=2, pady=10)
 
     # Frame for displaying results
     frame_results = tk.Frame(root, bg="#f0f0f0", bd=2, relief=tk.SUNKEN)
